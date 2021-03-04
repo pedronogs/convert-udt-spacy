@@ -2,6 +2,7 @@ import json
 import subprocess
 import spacy
 import re
+import argparse
 
 # Convert NER tag to IOB format based on token and annotated text 
 def convertIOB(token, annotation_text, annotation_label, previous_annotation):
@@ -15,12 +16,12 @@ def convertIOB(token, annotation_text, annotation_label, previous_annotation):
 
     return None
 
-def main():
-    udt_json = json.load(open("dev_data.json", "r", encoding='utf-8'))
+def main(ARGS):
+    udt_json = json.load(open(ARGS.input_file, "r", encoding='utf-8'))
     udt_samples = udt_json['samples']
 
     # Open IOB file for annotated data output in IOB format
-    f = open('dev_data.iob', 'w', encoding="utf-8")
+    f = open(ARGS.iob_file, 'w', encoding="utf-8")
     
     # Create blank PT language class
     nlp = spacy.blank("pt")
@@ -79,8 +80,16 @@ def main():
         f.write('\n')
 
     # Convert IOB file to spaCy binary format
-    subprocess.run(['python', '-m', 'spacy', 'convert', '-s', '-n', '10', '-l', 'pt', 'dev_data.iob', '.'])
+    # Options: s -> segmente sentences automatically, n -> group 10 sentences in a document, l -> language model
+    subprocess.run(['python', '-m', 'spacy', 'convert', '-s', '-n', '10', '-l', 'pt', ARGS.iob_file, '.'])
         
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description="Script to convert UDT's JSON exported NER annotations to IOB format and spaCy's binary format.")
+
+    parser.add_argument('-i', '--input_file', required=True, help="Path to UDT's JSON exported NER annotations file.")
+    parser.add_argument('-f', '--iob_file', default="output_annotations.iob", help="Path to output IOB converted file.")
+
+    ARGS = parser.parse_args()
+
+    main(ARGS)
