@@ -16,7 +16,7 @@
   "samples": [
     {
       "_id": "s7hkexdoh",
-      "document": "O meu nome é Pedro Henrique e meu CPF é 12345678900 .",
+      "document": "O meu nome é Pedro Henrique e meu CPF é 12345678900.",
       "annotation": {
         "entities": [
           { "text": "Pedro Henrique", "label": "nome", "start": 13, "end": 27 },
@@ -27,7 +27,7 @@
     },
     {
       "_id": "s5kwte5be",
-      "document": "O meu nome é Jorge e eu não tenho CPF .",
+      "document": "O meu nome é Jorge e eu não tenho CPF.",
       "annotation": {
         "entities": [
           { "text": "Jorge", "label": "nome", "start": 13, "end": 18 }
@@ -37,7 +37,7 @@
     },
     {
       "_id": "s9rd4pt5r",
-      "document": "A República Federativa do Brasil é linda .",
+      "document": "A República Federativa do Brasil é linda.",
       "annotation": {
         "entities": [
           {
